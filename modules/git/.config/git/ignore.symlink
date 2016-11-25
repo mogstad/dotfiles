@@ -1,0 +1,8 @@
+.env
+.DS_Store
+.AppleDouble
+.LSOverride
+.ruby-version
+
+*.sublime-project
+*.sublime-workspace

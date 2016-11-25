@@ -1,0 +1,5 @@
+function git-pr --description 'Opens GitHub’s create PR page with the active branch'
+  set -l branch (git rev-parse --abbrev-ref HEAD)
+  set -l remote (git ls-remote --get-url origin | sed 's/^git@github.com:\(.*\).git$/\1/g')
+  open "https://github.com/$remote/compare/$branch?expand=1"
+end

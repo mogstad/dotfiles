@@ -1,0 +1,30 @@
+function _git_branch_name --description 'Returns the branch name or the sha1 of the commit if HEAD is detached'
+  git symbolic-ref --short -q HEAD ; or git rev-parse --short HEAD
+end
+
+function _git_is_dirty --description 'Checks wheter or not the current repo is dirty'
+  test -n (command echo (command git status -s --ignore-submodules=dirty))
+end
+
+function _git_in_repo --description 'Returns whether or not l'
+  git rev-parse --is-inside-work-tree >/dev/null 2>&1
+end
+
+function print_segment --description 'Helper function to print prompt segments'
+  echo -n -s (set_color $argv[1]) $argv[2] ' '
+end
+
+function fish_prompt --description 'Write out the prompt'
+  set -l fish_color_error red
+
+  print_segment normal (prompt_pwd)
+
+  if _git_in_repo
+    print_segment yellow (_git_branch_name)
+    if _git_is_dirty
+      print_segment yellow "✗"
+    end
+  end
+
+  echo -n -s (set_color normal)
+end
