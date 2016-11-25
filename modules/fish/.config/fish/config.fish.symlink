@@ -1,12 +1,10 @@
 setenv EDITOR vim
 
-setenv PATH /usr/local/Cellar/python/2.7.12/bin/ $PATH
 setenv PATH /usr/local/heroku/bin $PATH
 setenv PATH /usr/local/share/npm/bin $PATH
-setenv PATH $PATH /Applications/Postgres.app/Contents/Versions/9.3/bin/
-setenv PATH $PATH /Users/mogstad/Downloads/nRF5x-Command-Line-Tools_8_4_0_OSX/nrfjprog
-setenv GOPATH ~/Project/go
+setenv GOPATH ~/Projects/go
 setenv PATH $PATH $GOPATH/bin
+
 if not status --is-interactive
   exit
 end
