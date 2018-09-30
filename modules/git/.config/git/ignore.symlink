@@ -6,3 +6,7 @@
 
 *.sublime-project
 *.sublime-workspace
+
+.buckd/
+.vs-code/
+buck-out/

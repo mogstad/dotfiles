@@ -4,7 +4,7 @@ IFS=$'\n'
 
 destination=~
 
-for dir in fish brew git ruby vim sublime
+for dir in brew fish git nodenv ruby vim sublime
 do
   echo "Installing module \"$dir\""
 

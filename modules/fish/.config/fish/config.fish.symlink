@@ -1,9 +1,8 @@
 setenv EDITOR vim
 
-setenv PATH /usr/local/heroku/bin $PATH
-setenv PATH /usr/local/share/npm/bin $PATH
-setenv GOPATH ~/Projects/go
-setenv PATH $PATH $GOPATH/bin
+set -x GOPATH ~/Projects/go
+set -x PATH $PATH $GOPATH/bin /Users/mogstad/Library/Python/2.7/bin ~/Library/Android/sdk/platform-tools/
+set -x PASSWORD_STORE_DIR /Users/mogstad/dropbox-searis/Boxes/passwords/
 
 if not status --is-interactive
   exit

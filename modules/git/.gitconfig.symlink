@@ -6,8 +6,8 @@
   name = Bjarne Mogstad
 [alias]
   br = "!git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(objectname:short) - %(refname:short) (%(authorname), %(committerdate:relative))'"
-  lg = "!git --no-pager log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an, %cr)%Creset' --abbrev-commit --date=relative -10"
-  lgu = "!git --no-pager log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an, %cr)%Creset' --abbrev-commit --date=relative @{u}.."
+  lg = "!git --no-pager log --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an, %cr)%Creset' --abbrev-commit --date=relative -10"
+  lgu = "!git --no-pager log --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an, %cr)%Creset' --abbrev-commit --date=relative @{u}.."
   pr = "!fish -i -c 'git-pr'"
 [rebase]
   autosquash = true

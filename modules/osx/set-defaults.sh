@@ -1,3 +1,5 @@
+#!/bin/sh
+
 defaults write NSGlobalDomain KeyRepeat -int 1
 defaults write NSGlobalDomain com.apple.trackpad.scaling 3
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true

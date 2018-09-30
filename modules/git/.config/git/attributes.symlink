@@ -1,1 +1,2 @@
 Gemfile.lock merge=bundleinstall
+package-lock.json -diff
