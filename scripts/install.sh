@@ -4,7 +4,18 @@ IFS=$'\n'
 
 destination=~
 
-for dir in brew fish git nodenv ruby vim sublime
+brewfiles=$(find modules -name "Brewfile")
+brew=$(mktemp)
+echo "- Concatenating brew files"
+for brewfile in $brewfiles
+do
+  cat $brewfile >> $brew
+done
+echo "- Installing dependencies"
+brew bundle install --file=$brew --verbose
+echo "- Installing dependencies done"
+
+for dir in brew fish git nodenv ruby vim sublime vs-code aws go xcode
 do
   echo "Installing module \"$dir\""
 
@@ -27,7 +38,6 @@ do
     echo "- Creating hard link for file: ~/$symlink"
     ln -f ./modules/$dir/$symlink.symlink $destination/$symlink
   done
-  
   scripts=$(find modules/$dir -name "*.sh")
   for script in $scripts
   do
@@ -41,7 +51,6 @@ do
     echo "- Invoking script: $script"
     fish $script >> /dev/null 2>&1
   done
-  echo
 done
 
 echo "Installation complete"

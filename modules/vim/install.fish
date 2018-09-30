@@ -1,5 +1,3 @@
-brew install vim; or brew outdated vim; or brew upgrade vim
-
 set -l vundle_path ~/.vim/bundle/Vundle.vim
 
 if test $vundle_path

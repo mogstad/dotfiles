@@ -1,7 +1,3 @@
-brew install carthage; or brew upgrade carthage
-brew install swiftgen; or brew upgrade swiftgen
-brew install swiftlint; or brew upgrade swiftlint
-
 defaults write com.apple.dt.xcode DVTTextEditorTrimWhitespaceOnlyLines -bool true
 defaults write com.apple.dt.xcode DVTTextIndentTabWidth -int 2
 defaults write com.apple.dt.xcode DVTTextIndentWidth -int 2

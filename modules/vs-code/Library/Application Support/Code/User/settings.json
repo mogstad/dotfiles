@@ -1,0 +1,18 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "git.enabled": false,
+    "editor.fontSize": 15,
+    "editor.fontFamily": "Fira Mono",
+    "editor.tabSize": 2,
+    "explorer.openEditors.visible": 0,
+    "extensions.ignoreRecommendations": false,
+    "editor.minimap.enabled": false,
+    "editor.formatOnSave": false,
+    "editor.multiCursorModifier": "alt",
+    "editor.snippetSuggestions": "top",
+    "editor.formatOnPaste": true,
+    "explorer.confirmDragAndDrop": false,
+    "window.zoomLevel": 0,
+    "breadcrumbs.enabled": true,
+    "prettier.requireConfig": true,
+}
