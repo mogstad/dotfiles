@@ -1,0 +1,252 @@
+;;; Package emacs.el
+
+(setq exec-path (append exec-path '("/usr/local/bin")))
+
+(tool-bar-mode -1)
+(toggle-scroll-bar -1)
+
+;; Open all files in the same frame
+(setq ns-pop-up-frames t)
+
+;; Only type y or n instead of yes or no
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Enable nice fonts in OS X
+(setq mac-allow-anti-aliasing t)
+
+;; No word wrap
+(setq-default truncate-lines t)
+
+;; Show extra whitespace
+(setq show-trailing-whitespace t)
+
+;; Ensure last line is a return
+(setq require-final-newline t)
+
+;; Thin cursor
+(setq-default cursor-type 'bar)
+
+;; Disable initial scratch message.
+(setq initial-scratch-message "")
+(setq inhibit-startup-message t)
+
+(global-subword-mode 1)
+
+;; Disable version control integration
+(setq vc-handled-backends ())
+(setq ring-bell-function 'ignore)
+
+;; Disable backup files
+(setq auto-save-default nil)
+(setq make-backup-files nil)
+(setq backup-inhibited t)
+(setq create-lockfiles nil)
+
+(setq-default indent-tabs-mode nil)
+(setq tab-width 2)
+
+(require 'package)
+
+(setq package-enable-at-startup nil)
+(setq package-archives '())
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+
+;; Load the list of packages but don't initialize them. use-package
+;; will arrange the necessary autoload entries.
+(package-initialize)
+
+;; If never connected to repositories before, download package
+;; descriptions so use-package can trigger installation of packages.
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package))
+
+(add-hook 'after-init-hook (lambda ()
+  (set-default-font "Fira Mono 17")
+  (add-to-list 'default-frame-alist '(font . "Fira Mono 17"))
+))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (neotree nlinum origami ivy projectile company tide flycheck))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+(use-package web-mode
+  :ensure t)
+
+(use-package origami
+  :ensure t
+  :init
+  (progn 
+    (origami-mode)))
+
+(use-package projectile
+  :ensure t
+  :after ivy
+  :init
+  (progn
+    (projectile-mode))
+  :config
+  (progn
+    (setq projectile-completion-system 'ivy)))
+
+(use-package ivy
+  :ensure t
+  :init
+  (progn
+    (ivy-mode 1)))
+
+;; Syntax checking
+(use-package flycheck
+  :ensure t
+  :config
+  (progn
+    (setq flycheck-check-syntax-automatically '(save mode-enabled)))
+  :init
+  (progn
+    (add-hook 'prog-mode-hook 'flycheck-mode)))
+
+;; Theme
+(use-package solarized-theme
+  :ensure t
+  :init
+  (progn
+    (load-theme 'solarized-dark t)))
+
+;; Line numbers
+(use-package nlinum
+  :ensure t
+  :init 
+  (progn
+    (setq nlinum-format " %d")
+    (global-nlinum-mode t)))
+
+(use-package typescript-mode
+  :ensure t
+  :config
+  (progn
+    (setq typescript-indent-level 2)))
+
+(defun neotree-toggle-projectile ()
+  "Toggle neotree with the project folder as root if inside a
+Projectile project, or just for the current directory."
+  (interactive)
+  (if (projectile-project-p)
+      (if (neo-global--window-exists-p)
+          (neotree-hide)
+        (neotree-projectile-action))
+      (neotree-toggle)))
+
+(use-package neotree
+  :ensure t
+  :bind ("C-x t" . neotree-toggle-projectile)
+  :init
+  (progn
+    (setq-default neo-smart-open t))
+  :config
+  (progn
+    (setq neo-theme 'nerd)
+    (setq neo-window-width 30)))
+
+
+;; Fridge
+;; (use-package fridge)
+;; Fringe on left and rights
+(fringe-mode '(16 . 16))
+
+
+;; Auto complete mode
+(use-package company
+  :ensure t
+  :after flycheck
+  :config
+  (progn
+    (setq company-dabbrev-downcase nil)
+    (setq company-idle-delay 0.2
+          company-minimum-prefix-length 2
+          company-echo-delay 0))
+  :init
+  (progn
+    (global-company-mode)
+    (define-key company-active-map (kbd "M-n") nil)
+    (define-key company-active-map (kbd "M-p") nil)
+    (define-key company-active-map (kbd "C-n") 'company-select-next)
+    (define-key company-active-map (kbd "C-p") 'company-select-previous)))
+
+;; TypeScript
+(use-package tide
+  :ensure t
+  :after (company web-mode typescript-mode)
+  :config
+  (progn
+    (setq company-tooltip-align-annotations t))
+  :init
+  (progn
+    (defun setup-tide ()
+      (tide-setup)
+      ;; (flycheck-mode +1)
+      ;; (eldoc-mode +1)
+      (tide-hl-identifier-mode +1))
+      ;; (company-mode +1))
+
+    (add-hook 'typescript-mode-hook #'setup-tide)
+    (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+    (add-hook 'web-mode-hook
+      (lambda ()
+        (when (string-equal "tsx" (file-name-extension buffer-file-name))
+          (setup-tide))))))
+    
+
+;; Insert fancy quotes…;
+(global-set-key (kbd "M-;") (lambda () (interactive) (insert "…")))
+(global-set-key (kbd "M-}") (lambda () (interactive) (insert "’")))
+(global-set-key (kbd "M-]") (lambda () (interactive) (insert "‘")))
+(global-set-key (kbd "M-{") (lambda () (interactive) (insert "”")))
+(global-set-key (kbd "M-[") (lambda () (interactive) (insert "“")))
+
+;; Allow norwegian characters 
+;; (TODO: only enable in modes where I write norwegian)
+(global-set-key (kbd "M-a") (lambda () (interactive) (insert "å")))
+(global-set-key (kbd "M-o") (lambda () (interactive) (insert "ø")))
+(global-set-key (kbd "M-'") (lambda () (interactive) (insert "æ")))
+(global-set-key (kbd "M-A") (lambda () (interactive) (insert "Å")))
+(global-set-key (kbd "M-O") (lambda () (interactive) (insert "Ø")))
+(global-set-key (kbd "M-\"") (lambda () (interactive) (insert "Æ")))
+
+;; Window management
+;; (not sure about this)
+(defun prev-window ()
+  "Go to the previous window."
+  (interactive)
+  (other-window -1))
+
+(global-set-key (kbd "s-<backspace>") 'previous-buffer)
+(global-set-key (kbd "s-{") 'prev-window)
+(global-set-key (kbd "s-}") 'other-window)
+
+;; Keyboard shortcuts
+(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "M-h") 'backward-kill-word)
+
+;; Improve scrolling
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq scroll-step 1) ;; keyboard scroll one line at a time
+(setq scroll-conservatively 10000)
+(setq scroll-margin 3)

@@ -1,4 +1,6 @@
 tap "homebrew/cask"
+tap "homebrew/cask-drivers"
+
 cask "fastlane"
 cask "ngrok"
 cask "docker"
@@ -17,15 +19,21 @@ cask "skype"
 cask "the-unarchiver"
 cask "harvest"
 cask "virtualbox"
+cask "kaleidoscope"
+
+cask "sonos"
+cask "caldigit-usb-c-dock-driver"
+cask "prolific-pl2303"
+cask "tuntap"
 
 cask "firefox"
 cask "google-chrome"
 cask "brave"
 
+brew "ansible"
 brew "caddy"
 brew "cloc"
 brew "nmap"
 brew "pass"
 brew "watchman"
 brew "xctool"
-
