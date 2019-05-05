@@ -15,7 +15,7 @@ echo "- Installing dependencies"
 brew bundle install --file=$brew --verbose
 echo "- Installing dependencies done"
 
-for dir in brew fish git nodenv ruby vim sublime vs-code aws go xcode emacs
+for dir in brew fish git nodenv ruby sublime vs-code aws go xcode emacs vim
 do
   echo "Installing module \"$dir\""
 

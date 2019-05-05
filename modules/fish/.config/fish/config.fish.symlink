@@ -1,8 +1,8 @@
 setenv EDITOR vim
 
 set -x GOPATH ~/Projects/go
-set -x PATH $PATH $GOPATH/bin /Users/mogstad/Library/Python/2.7/bin ~/Library/Android/sdk/platform-tools/
-set -x PASSWORD_STORE_DIR /Users/mogstad/dropbox-searis/Boxes/passwords/
+set -x PATH $PATH $GOPATH/bin
+set -x PASSWORD_STORE_DIR /Users/mogstad/dropbox-searis/boxes/passwords/
 
 if not status --is-interactive
   exit
