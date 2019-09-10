@@ -86,6 +86,9 @@
  ;; If there is more than one, they won't work right.
  )
 
+(use-package lsp-mode
+  :ensure t)
+
 (use-package web-mode
   :ensure t)
 
@@ -187,6 +190,13 @@ Projectile project, or just for the current directory."
     (define-key company-active-map (kbd "M-p") nil)
     (define-key company-active-map (kbd "C-n") 'company-select-next)
     (define-key company-active-map (kbd "C-p") 'company-select-previous)))
+
+(use-package company-lsp
+  :ensure t
+  :after company
+  :config
+  (progn
+    (push 'company-lsp company-backends)))
 
 ;; TypeScript
 (use-package tide

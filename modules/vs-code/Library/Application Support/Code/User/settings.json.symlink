@@ -14,7 +14,6 @@
     "window.zoomLevel": 0,
     "breadcrumbs.enabled": true,
     "editor.quickSuggestions": false,
-    "editor.suggestOnTriggerCharacters": false,
     "workbench.iconTheme": null,
     "workbench.activityBar.visible": false,
     "explorer.autoReveal": false,
@@ -28,5 +27,11 @@
     "prettier.requireConfig": true,
     "[json]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    },
+    "editor.formatOnSave": true,
+    "explorer.confirmDelete": false,
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "go.useLanguageServer": true
 }

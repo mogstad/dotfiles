@@ -1,6 +1,7 @@
 tap "homebrew/cask"
 tap "homebrew/cask-drivers"
 tap "bep/tap"
+tap "rliebz/tusk"
 
 cask "fastlane"
 cask "ngrok"
@@ -18,7 +19,6 @@ cask "dropbox"
 cask "hex-fiend"
 cask "skype"
 cask "the-unarchiver"
-cask "harvest"
 cask "virtualbox"
 cask "kaleidoscope"
 
